@@ -61,6 +61,8 @@ for (i in 1:length(files)) {
         #Change factor levels to comprehensible names
         data$Grammaticality[data$Grammaticality == "inc"] <- "Incorrect"
         data$Grammaticality[data$Grammaticality == "cor"] <- "Correct"
+        data$Grammaticality[data$Grammaticality == "INC"] <- "Incorrect"
+        data$Grammaticality[data$Grammaticality == "COR"] <- "Correct"
         # make col for subject ID
         data$Subject <- as.character(i)
         # reorder cols
