@@ -17,8 +17,8 @@ files = dir(path = "./GJT", pattern="*.csv")
 GJT <- data.frame() 
 
 # For testing only
-# i = sample(1:26, 1)
-# i = 2
+# i = sample(1:35, 1)
+# i = 1
 for (i in 1:length(files)) {
         # read file
         data = read.csv(file=(paste("./GJT/", files[i], sep="")),skip=45, header=F,as.is=TRUE,dec=",")
@@ -65,8 +65,10 @@ for (i in 1:length(files)) {
         data$Grammaticality[data$Grammaticality == "COR"] <- "Correct"
         # make col for subject ID
         data$Subject <- as.character(i)
+        # make col for trial nr
+        data$Trial <- 1:nrow(data)
         # reorder cols
-        data = data %>% relocate(Subject, Condition, Type, Grammaticality, Item, Sentence, Key, Accuracy, ReactionTime)
+        data = data %>% relocate(Subject, Trial, Condition, Type, Grammaticality, Item, Sentence, Key, Accuracy, ReactionTime)
         # delete the Trigger col
         data$Trigger <- NULL
         # in some files there's an additional row at the end (nr 441)
@@ -81,3 +83,6 @@ if (nrow(GJT)/nrow(data)==i){print("SUCCESS!")}
 
 # write as text file into WD
 write.table(GJT, "GJT.txt",row.names = F)
+
+# and in parent dir
+write.table(GJT, "../GJT.txt",row.names = F)
